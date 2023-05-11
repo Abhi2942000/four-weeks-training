@@ -1,20 +1,22 @@
-﻿namespace IteratorsApp
+﻿using System;
+namespace LogicalPrograms
 {
-    internal class Program
+    public class Fibonacci
     {
         static void Main(string[] args)
         {
-            var fibonacci = FibonacciSequence().Take(10);
-            foreach (int number in fibonacci)
-            {
-                Console.WriteLine(number);
-            }
+            Console.Write("Please enter the number to print Fibonacci Series : ");
+            int number = int.Parse(Console.ReadLine());
+            FibonacciSeries(0, 1, 1, number);
+            Console.ReadKey();
         }
-        // https://www.c-sharpcorner.com/UploadFile/5ef30d/understanding-yield-return-in-C-Sharp/
-        // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/yield
-        public static IEnumerable<int> FibonacciSequence()
+        public static void FibonacciSeries(int Number1, int Number2, int counter, int number)
         {
-            throw new NotImplementedException();
+            Console.Write(Number1 + " ");
+            if (counter < number)
+            {
+                FibonacciSeries(Number2, Number1 + Number2, counter + 1, number);
+            }
         }
     }
 }
