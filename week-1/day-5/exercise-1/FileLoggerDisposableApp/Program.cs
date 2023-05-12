@@ -1,82 +1,45 @@
-﻿namespace FileLoggerDisposableApp
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            // Use FileLogger and dispose of it properly
-        }
-    }
-
-    class FileLogger : IDisposable
-    {
-        private StreamWriter _writer;
-
-        public FileLogger(string filePath)
-        {
-            // Initialize StreamWriter instance
-        }
-
-        public void Dispose()
-        {
-            // Implement IDisposable pattern
-        }
-
-        public void Log(string message)
-        {
-            // Write message to the file
-        }
-    }
-}
-
-using System;
+﻿using System;
 using System.IO;
 
-//Created a class called "FileLogger" that implements the IDisposable interface.
+// Create an interface called "IProcessor<in TInput, out TResult>" with a single method "TResult Process(TInput input)".
 
-public class FileLogger : IDisposable
+public interface IProcessor<in TInput, out TResult>
 {
-    private StreamWriter _writer;                                  //Added a private field called "_writer" which is an instance of StreamWriter.
+    TResult Process(TInput input);
+}
 
-    public FileLogger(string filePath)                            //Created a constructor that takes a file path as a parameter and initializes the "_writer" field with that file path.
-    {
-        _writer = new StreamWriter(filePath);
-    }
+// Create a class called "StringToIntProcessor" that implements "IProcessor<string, int>" and returns the length of the input string.
 
-    public void Log(string message)                               //We have added a method called "Log" that writes a log entry to the file.
+public class StringToIntProcessor : IProcessor<string, int>
+{
+    public int Process(string input)
     {
-        _writer.WriteLine($"{DateTime.Now.ToString()} - {message}");
-    }
-
-    public void Dispose()                                         //Implemented the IDisposable pattern by defining a "Dispose" method,
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);                                // We have also added a call to "GC.SuppressFinalize(this)" to ensure that the finalizer does not attempt to dispose of the object again.
-    }
-
-    protected virtual void Dispose(bool disposing)                // "Dispose(bool disposing)" method, which is used to properly dispose of the object
-    {
-        if (disposing)
-        {
-            if (_writer != null)
-            {
-                _writer.Dispose();
-                _writer = null;
-            }
-        }
+        return input.Length;
     }
 }
 
+// Create a class called "DoubleToStringProcessor" that implements "IProcessor<double, string>" and returns the string representation of the input double
 
-public class Program
+public class DoubleToStringProcessor : IProcessor<double, string>
 {
-    public static void Main()
+    public string Process(double input)
     {
-        using (var logger = new FileLogger("log.txt"))           //we have created a "FileLogger" instance and used it to write two log entries to the file "log.txt".
-        {
-            logger.Log("Abhi");
-            logger.Log("Sharvil");
-        }
+        return input.ToString();
     }
 }
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        StringToIntProcessor stringToIntProcessor = new StringToIntProcessor();
+        int output1 = stringToIntProcessor.Process("Abhi this side..!");
+        Console.WriteLine(output1);
+
+        DoubleToStringProcessor doubleToStringProcessor = new DoubleToStringProcessor();
+        string output2 = doubleToStringProcessor.Process(3.141146565546);
+        Console.WriteLine(output2);
+    }
+}
+
 
