@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="app.component.css">
+<body align = "center">
+
+<br><br>
+<form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+
+<input type="text" placeholder="Enter Your First Name" formControlName="userFName">
+<br><br>
+<input type="text" placeholder="Enter Your Last Name" formControlName="userLFName">
+<br><br>
+<input type="email" placeholder="Enter Your Email" formControlName="userEmail">
+<br><br>
+<input type="password" placeholder="Enter password" formControlName="password">
+<br><br>
+<button>Login</button>
+<br><br>
+
+</form>
+
+</body>
