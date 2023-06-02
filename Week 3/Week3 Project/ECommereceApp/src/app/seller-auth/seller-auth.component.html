@@ -1,0 +1,17 @@
+<div class="seller-auth">
+    <div class="sign-up">
+      <h1>Seller Sign-Up</h1>
+      <!-- #sellerSignUp="ngForm" is the name of the form -->
+      <form #sellerSignUp="ngForm" (ngSubmit)="signUp(sellerSignUp.value)" class="common-form">
+        <!-- when we write ngModel in input field then field is connect with the ngModel -->
+        <!-- if we did not write ngModel then data will be not send  -->
+        <input class="form-input" type="text" name="name" ngModel placeholder="Enter Name">
+        <input class="form-input" type="password" name="password" ngModel placeholder="Enter Password">
+        <input class="form-input" type="text" name="email" ngModel placeholder="Enter Email">
+        <button class="form-button" >SignUp</button>
+      </form>
+    </div>
+</div>
+
+
+
